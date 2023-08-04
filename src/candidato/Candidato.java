@@ -1,10 +1,12 @@
 package candidato;
 
 public class Candidato {
+    private String nome;
     private double salarioPretendido;
 
-    public Candidato (double pretensao)
+    public Candidato (String nome, double pretensao)
     {
+        this.nome = nome;
         this.salarioPretendido = pretensao;
     }
 
@@ -21,5 +23,14 @@ public class Candidato {
 
     public double getSalarioPretendido() {
         return salarioPretendido;
+    }
+
+    public String getSalarioPretendidoString() {
+        return String.format("%4.2f", this.getSalarioPretendido());
+    }
+
+
+    public String getNome() {
+        return this.nome;
     }
 }
