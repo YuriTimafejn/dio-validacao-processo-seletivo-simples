@@ -3,12 +3,18 @@ package candidato;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class Repositorio {
     private List<Candidato> repositorio;
+
+    public Repositorio ()
+    {
+        this.repositorio = new ArrayList<>();
+    }
 
     public void add(Candidato candidato)
     {
@@ -20,23 +26,25 @@ public class Repositorio {
         return this.repositorio;
     }
 
-    public void ordenaRepositorioPorPretensao()
+    private void ordenaRepositorioPorPretensao()
     {
         Collections.sort(this.repositorio, Comparator.comparing(Candidato::getSalarioPretendido));
     }
 
     public void selecionaCandidatos(int quantidadeCandidatos)
     {
+        ordenaRepositorioPorPretensao();
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Lista_Candidatos.txt"))) {
             int count = 0;
-            for (Candidato candidato: this.repositorio)
+            for (Candidato candidato: this.getRepositorio())
             {
-                if (count > 5)
+                if (count > quantidadeCandidatos)
                 {
                     break;
                 }
 
-                writer.write("O candidato " + candidato.getNome() + "indicou o valor de R$ " + candidato.getSalarioPretendidoString() + "como remuneração pretendida.\n");
+                writer.write("O candidato " + candidato.getNome() + " indicou o valor de R$ " + candidato.getSalarioPretendidoString() + " como remuneração pretendida.\n");
                 count++;
             }
         } catch (IOException ioException)
