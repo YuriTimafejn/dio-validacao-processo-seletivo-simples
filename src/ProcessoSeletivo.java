@@ -1,6 +1,9 @@
 import candidato.Candidato;
 import candidato.Repositorio;
 
+import java.util.Random;
+import java.util.Scanner;
+
 public class ProcessoSeletivo {
     public static void main(String[] args) {
         Repositorio repositorio = new Repositorio();
@@ -16,6 +19,34 @@ public class ProcessoSeletivo {
         repositorio.add(new Candidato("Benetido Bernardo", 1800));
         repositorio.add(new Candidato("Cezar Cruz", 1700));
 
-        repositorio.selecionaCandidatos(5);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Quantos candidatos deseja filtrar?");
+        int numeroCandidatos = scanner.nextInt();
+
+        repositorio.selecionaCandidatos(numeroCandidatos);
+        tentativaContato(repositorio, numeroCandidatos);
+    }
+
+    public static void tentativaContato(Repositorio repositorio, int candidatos)
+    {
+        for (Candidato candidato :
+                repositorio.getRepositorioComQuantidadeCandidatos(candidatos)) {
+            int contador = 1;
+
+            while (contador <= 3)
+            {
+                if (atendeu())
+                {
+                    System.out.println("O candidato " + candidato.getNome() + " atendeu as ligações na " +contador + "° tentativa e agendou uma entrevista");
+                    break;
+                }
+                contador++;
+            }
+
+        }
+    }
+
+    private static boolean atendeu() {
+        return Random.from(new Random()).nextInt(3) == 1;
     }
 }

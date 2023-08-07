@@ -26,6 +26,25 @@ public class Repositorio {
         return this.repositorio;
     }
 
+    public List<Candidato> getRepositorioComQuantidadeCandidatos (int quantitade)
+    {
+        this.ordenaRepositorioPorPretensao();
+        int i = 1;
+        List<Candidato> retorno = new ArrayList<>();
+
+        for (Candidato candidato : this.getRepositorio()) {
+            if (i > quantitade)
+            {
+                break;
+            }
+            i++;
+
+            retorno.add(candidato);
+        }
+
+        return retorno;
+    }
+
     private void ordenaRepositorioPorPretensao()
     {
         Collections.sort(this.repositorio, Comparator.comparing(Candidato::getSalarioPretendido));
